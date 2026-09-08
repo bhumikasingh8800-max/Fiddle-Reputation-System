@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Utensils, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
+import logo from '../assets/firstfiddle-logo.png'
 
 export default function Login() {
   const { login } = useAuth()
@@ -28,9 +29,9 @@ export default function Login() {
     <div className="flex items-center justify-center h-screen bg-dark-900 px-4">
       <div className="w-full max-w-sm card p-6 animate-slide-up">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-gradient-brand rounded-xl flex items-center justify-center shadow-glow-brand flex-shrink-0">
-            <Utensils size={18} className="text-white" />
-          </div>
+          
+            <img src={logo} alt="first fiddle logo" className="text-white w-12 h-12" />
+          
           <div>
             <p className="font-display font-bold text-slate-100">First Fiddle</p>
             <p className="text-xs text-slate-500">Sign in to your account</p>
