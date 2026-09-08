@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # Gemini LLM
     GEMINI_API_KEY: str = ""
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: str = "gemini-3.6-flash"
 
     # Scraping
     SCRAPE_DELAY: float = 2.0

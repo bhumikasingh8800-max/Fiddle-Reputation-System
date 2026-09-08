@@ -175,11 +175,92 @@
 }
 
 [data-theme="light"] .bg-dark-900 { background-color: #E3E0D8 !important; }
+[data-theme="light"] .bg-dark-800 { background-color: #ffffff !important; }
 [data-theme="light"] .bg-dark-600 { background-color: #ffffff !important; }
 [data-theme="light"] .bg-dark-700 { background-color: #f4f2ee !important; }
 [data-theme="light"] .bg-dark-600 { background-color: #eae7df !important; }
 [data-theme="light"] .bg-dark-500 { background-color: #d3cfc2 !important; }
 [data-theme="light"] .bg-dark-400 { background-color: #bbb6a5 !important; }
+
+[data-theme="light"] .bg-dark-900\/80 { background-color: rgba(227, 224, 216, 0.8) !important; }
+
+/* Fixes the Navbar bottom border (border-dark-500/60) */
+[data-theme="light"] .border-dark-500\/60 { border-color: rgba(211, 207, 194, 0.6) !important; }
+
+/* Fixes Notification and Profile Modal backgrounds (bg-dark-700/50) */
+[data-theme="light"] .bg-dark-700\/50 { background-color: rgba(244, 242, 238, 0.5) !important; }
+
+/* Fixes hover states in Notification lists (bg-dark-700/40) */
+[data-theme="light"] .bg-dark-700\/40 { background-color: rgba(244, 242, 238, 0.4) !important; }
+
+/* Fixes the Preferences tab backgrounds (bg-dark-700/30) */
+[data-theme="light"] .bg-dark-700\/30 { background-color: rgba(244, 242, 238, 0.3) !important; }
+
+/* Fixes the hover borders on ghost buttons (border-dark-500/40) */
+[data-theme="light"] .border-dark-500\/40 { border-color: rgba(211, 207, 194, 0.4) !important; }
+
+[data-theme="light"] .from-dark-800\/80 {
+  --tw-gradient-from: rgba(255, 255, 255, 0.8) !important;
+  --tw-gradient-to: rgba(255, 255, 255, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+[data-theme="light"] .to-dark-900\/40 {
+  --tw-gradient-to: rgba(227, 224, 216, 0.4) !important;
+}
+
+[data-theme="light"] .bg-dark-700\/60 { background-color: rgba(244, 242, 238, 0.6) !important; }
+[data-theme="light"] .border-dark-600\/40 { border-color: rgba(234, 231, 223, 0.4) !important; }
+
+/* ── Dashboard List & Border Fixes ── */
+/* These fix the health rows and section dividers lower down in the Dashboard */
+[data-theme="light"] .bg-dark-600\/30 { background-color: rgba(234, 231, 223, 0.3) !important; }
+[data-theme="light"] .border-dark-600\/30 { border-color: rgba(234, 231, 223, 0.3) !important; }
+[data-theme="light"] .border-dark-600\/50 { border-color: rgba(234, 231, 223, 0.5) !important; }
+
+/* ── Profile Header & Dropdown Gradient Fixes ── */
+[data-theme="light"] .from-dark-700 {
+  --tw-gradient-from: #f4f2ee !important; /* Translates to your light mode dark-700 */
+  --tw-gradient-to: rgba(244, 242, 238, 0) !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+[data-theme="light"] .to-dark-800 {
+  --tw-gradient-to: #ffffff !important; /* Translates to your light mode dark-800 */
+}
+
+/* ── Fix for the dark overlay behind the Profile Modal ── */
+/* The modal uses bg-black/85 which stays dark in light mode. This softens it. */
+[data-theme="light"] .bg-black\/85 {
+  background-color: rgba(227, 224, 216, 0.7) !important; 
+}
+
+[data-theme="light"] .bg-dark-600\/80 { background-color: rgba(234, 231, 223, 0.8) !important; }
+[data-theme="light"] .border-dark-400\/60 { border-color: rgba(187, 182, 165, 0.6) !important; }
+
+[data-theme="light"] .shadow-2xl {
+  box-shadow: 0 20px 40px -10px rgba(32, 37, 40, 0.12) !important;
+}
+
+/* 2. Softens Tailwind's default md shadow (Navbar icon buttons) */
+[data-theme="light"] .shadow-md {
+  box-shadow: 0 4px 12px -2px rgba(32, 37, 40, 0.06) !important;
+}
+
+/* 3. Softens the orange brand glow (Avatars, Active Tabs, Logo) */
+[data-theme="light"] .shadow-glow-brand {
+  box-shadow: 0 4px 15px rgba(250, 175, 29, 0.2) !important;
+}
+
+/* 4. Overrides the harsh black inline shadow on StatCards */
+[data-theme="light"] .stat-card {
+  box-shadow: 0 8px 20px -5px rgba(32, 37, 40, 0.06) !important;
+}
+
+[data-theme="light"] .stat-card:hover {
+  box-shadow: 0 12px 25px -5px rgba(32, 37, 40, 0.12) !important;
+  transform: translateY(-2px);
+}
 
 [data-theme="light"] .border-dark-500,
 [data-theme="light"] .border-dark-400 { border-color: #d3cfc2 !important; }

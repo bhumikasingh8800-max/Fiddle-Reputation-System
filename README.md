@@ -84,7 +84,7 @@ npm run dev
 |---|---|
 | `DATABASE_URL` | PostgreSQL connection string |
 | `GEMINI_API_KEY` | Google Gemini API key (get from Google AI Studio) |
-| `GEMINI_MODEL` | Model to use (default: `gemini-2.0-flash`) |
+| `GEMINI_MODEL` | Model to use (default: `gemini-3.6-flash`) |
 | `SCRAPE_DELAY` | Seconds between scraper requests (default: 2) |
 | `SENTIMENT_MODEL` | HuggingFace model name |
 

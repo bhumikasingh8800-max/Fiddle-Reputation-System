@@ -18,7 +18,8 @@ CATEGORIES = [
 
 def _period_to_cutoff(period: str) -> Optional[datetime]:
     """Convert period string to datetime cutoff."""
-    mapping = {"7d": 7, "30d": 30, "90d": 90}
+    # Add "100d": 100 to the mapping dictionary
+    mapping = {"7d": 7, "30d": 30, "90d": 90, "100d": 100}
     days = mapping.get(period)
     return datetime.utcnow() - timedelta(days=days) if days else None
 
@@ -66,7 +67,8 @@ async def get_overview(db: Prisma = Depends(get_db)):
 @router.get("/{restaurant_id}", summary="Per-outlet analytics")
 async def get_outlet_analytics(
     restaurant_id: uuid.UUID,
-    period: str = Query("30d", regex="^(7d|30d|90d|all)$"),
+    # Update default to "100d" and add "100d" to the regex
+    period: str = Query("100d", regex="^(7d|30d|90d|100d|all)$"),
     db: Prisma = Depends(get_db),
 ):
     """
@@ -109,7 +111,8 @@ async def get_outlet_analytics(
 @router.get("/trend/rating", summary="Time-series rating and review count trend")
 async def get_rating_trend(
     restaurant_id: Optional[uuid.UUID] = Query(None),
-    period: str = Query("90d", regex="^(30d|90d|all)$"),
+    # Update default to "100d" and add "100d" to the regex
+    period: str = Query("100d", regex="^(30d|90d|100d|all)$"),
     db: Prisma = Depends(get_db),
 ):
     """

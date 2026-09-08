@@ -142,8 +142,7 @@ function ProfileModal({ user, onClose, initialTab = 'profile' }) {
 
               {[
                 { key: 'name', label: 'Full Name', placeholder: 'Your full name' },
-                { key: 'email', label: 'Email Address', placeholder: 'you@example.com' },
-                { key: 'role', label: 'Role / Title', placeholder: 'e.g. Founder & CEO' },
+                { key: 'email', label: 'Email Address', placeholder: 'you@example.com' }
               ].map(({ key, label, placeholder }) => (
                 <div key={key}>
                   <label className="text-xs text-slate-400 font-medium mb-1.5 block">{label}</label>

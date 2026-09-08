@@ -112,8 +112,8 @@ export default function Dashboard() {
         const firstId = rests.items[0].id
         setSelectedOutlet(firstId)
         const [analytics, t, r] = await Promise.all([
-          getOutletAnalytics(firstId, '30d'),
-          getRatingTrend(firstId, '90d'),
+          getOutletAnalytics(firstId, '100d'), // Changed from 30d
+          getRatingTrend(firstId, '100d'),     // Changed from 90d to match
           getReviews(firstId, { page_size: 10 }),
         ])
         setOutletAnalytics(analytics)
@@ -142,8 +142,8 @@ export default function Dashboard() {
       return
     }
     const [analytics, t, r] = await Promise.all([
-      getOutletAnalytics(outletId, '30d'),
-      getRatingTrend(outletId, '90d'),
+      getOutletAnalytics(outletId, '100d'), // Changed from 30d
+      getRatingTrend(outletId, '100d'),     // Changed from 90d to match
       getReviews(outletId, { page_size: 10 }),
     ])
     setOutletAnalytics(analytics)
@@ -223,7 +223,8 @@ export default function Dashboard() {
         <StatCard
           icon={MessageCircle} label="Total Reviews"
           value={loading ? '…' : outletAnalytics?.total_reviews?.toLocaleString()}
-          sub="Selected outlet, last 30 days" color="purple"
+          sub="Selected outlet, last 100 days" /* Changed from 30 days */
+          color="purple"
         />
         <StatCard
           icon={Star} label="Avg Rating"
@@ -259,7 +260,8 @@ export default function Dashboard() {
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-dark-600/30 flex-shrink-0">
               <div className="w-1.5 h-4 bg-emerald-500 rounded-full" />
               <p className="section-title mb-0">Rating & Review Trend</p>
-              <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-dark-800 border border-dark-600 px-2 py-0.5 rounded-full">90 days</span>
+              {/* Changed text below from 90 days to 100 days */}
+              <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-dark-800 border border-dark-600 px-2 py-0.5 rounded-full">100 days</span> 
             </div>
             <div className="flex-1 min-h-0 flex items-center justify-center">
               <RatingTrend data={trend} />
