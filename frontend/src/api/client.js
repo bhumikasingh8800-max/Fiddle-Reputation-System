@@ -125,6 +125,7 @@ export const downloadReportPDF = async (restaurantId, period) => {
   const response = await api.get(`/api/reports/${restaurantId}/pdf`, {
     params: { period },
     responseType: 'blob',
+    timeout: 120_000, // PDF generation can take up to 30s with Gemini + Playwright
   })
   const blob = new Blob([response.data], { type: 'application/pdf' })
   const url = window.URL.createObjectURL(blob)

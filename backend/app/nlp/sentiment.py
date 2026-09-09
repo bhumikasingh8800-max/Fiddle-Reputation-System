@@ -1,12 +1,3 @@
-"""
-Sentiment Analysis Pipeline using HuggingFace Transformers.
-Model: cardiffnlp/twitter-roberta-base-sentiment-latest
-  - Trained on 124M tweets, fine-tuned for sentiment
-  - Outputs: Positive / Neutral / Negative + confidence score
-
-Falls back to a simple VADER-style lexicon approach if the model
-cannot be loaded (e.g., in resource-constrained environments).
-"""
 import logging
 import re
 from dataclasses import dataclass
@@ -19,7 +10,6 @@ LABEL_MAP = {
     "LABEL_0": "negative",
     "LABEL_1": "neutral",
     "LABEL_2": "positive",
-    # Some model versions use these labels directly
     "negative": "negative",
     "neutral": "neutral",
     "positive": "positive",
@@ -28,24 +18,20 @@ LABEL_MAP = {
 
 @dataclass
 class SentimentResult:
-    label: str          # 'positive' | 'neutral' | 'negative'
-    score: float        # Confidence score 0.0–1.0 for the label
-    compound: float     # Normalized compound: +1.0 (positive) to -1.0 (negative)
+    label: str          
+    score: float        
+    compound: float     
 
 
 class SentimentAnalyzer:
-    """
-    Wraps HuggingFace sentiment pipeline with preprocessing and fallback.
-    Designed to be instantiated once and reused across requests.
-    """
-
+   
     def __init__(self, model_name: str = "cardiffnlp/twitter-roberta-base-sentiment-latest"):
         self.model_name = model_name
         self._pipeline = None
         self._load_model()
 
     def _load_model(self) -> None:
-        """Load the HuggingFace pipeline. Falls back gracefully on failure."""
+
         try:
             from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
             logger.info(f"[Sentiment] Loading model: {self.model_name}")
@@ -65,17 +51,17 @@ class SentimentAnalyzer:
             self._pipeline = None
 
     def _preprocess(self, text: str) -> str:
-        """Clean text before feeding to the model."""
+ 
         if not text:
             return ""
-        # Lowercase, remove URLs, excessive whitespace, HTML tags
+
         text = re.sub(r"http\S+|www\S+", " ", text)
         text = re.sub(r"<[^>]+>", " ", text)
         text = re.sub(r"\s+", " ", text).strip()
-        # Twitter model expects @mentions and #hashtags as tokens
+
         text = re.sub(r"@\w+", "@user", text)
         text = re.sub(r"#(\w+)", r"\1", text)
-        # Truncate to 500 chars for performance
+ 
         return text[:500]
 
     def _compound_from_label(self, label: str, score: float) -> float:
@@ -88,10 +74,7 @@ class SentimentAnalyzer:
             return 0.0
 
     def _fallback_sentiment(self, text: str) -> SentimentResult:
-        """
-        Simple keyword-based fallback when the transformer model is unavailable.
-        Uses curated positive/negative word lists typical for restaurant reviews.
-        """
+      
         text_lower = text.lower()
 
         positive_words = {
@@ -122,15 +105,7 @@ class SentimentAnalyzer:
             return SentimentResult("neutral", 0.5, 0.0)
 
     def analyze(self, text: str) -> SentimentResult:
-        """
-        Analyze sentiment of a single review text.
-
-        Args:
-            text: Raw review text
-
-        Returns:
-            SentimentResult with label, score, and compound
-        """
+       
         if not text or not text.strip():
             return SentimentResult("neutral", 0.5, 0.0)
 
@@ -156,16 +131,7 @@ class SentimentAnalyzer:
         return SentimentResult("neutral", 0.5, 0.0)
 
     def analyze_batch(self, texts: list[str], batch_size: int = 16) -> list[SentimentResult]:
-        """
-        Analyze a batch of texts efficiently.
-
-        Args:
-            texts: List of review texts
-            batch_size: Number of texts to process per batch
-
-        Returns:
-            List of SentimentResult in same order as input
-        """
+        
         if not texts:
             return []
 
@@ -193,7 +159,7 @@ class SentimentAnalyzer:
 
 @lru_cache(maxsize=1)
 def get_sentiment_analyzer() -> SentimentAnalyzer:
-    """Singleton sentiment analyzer (loaded once, reused per process)."""
+ 
     from app.config import get_settings
     settings = get_settings()
     return SentimentAnalyzer(model_name=settings.SENTIMENT_MODEL)

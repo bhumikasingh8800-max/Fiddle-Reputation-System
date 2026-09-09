@@ -3,12 +3,13 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {
   Bell, Settings, LogOut, User2, ChevronDown, X, Shield,
   Moon, Globe2, Zap, Lock, Eye, EyeOff, CheckCircle2,
-  AlertCircle, Utensils, Menu
+  AlertCircle, Utensils, Menu, FileText
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { usePreferences } from '../context/PreferencesContext'
 import { useNotifications, formatRelativeTime } from '../context/NotificationsContext'
 import { changePassword } from '../api/client'
+import ReportModal from './ReportModal'
 import logo from '../assets/firstfiddle-logo.png'
 
 const NAV_ITEMS = [
@@ -303,6 +304,7 @@ export default function Navbar() {
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [profileModalTab, setProfileModalTab] = useState('profile')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showReport, setShowReport] = useState(false)
 
   const notifRef = useRef(null)
   const profileRef = useRef(null)
@@ -372,8 +374,19 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right: Actions (Notifications & User Settings) */}
+        {/* Right: Actions */}
         <div className="flex items-center gap-3">
+
+          {/* PDF Reports button */}
+          <button
+            id="nav-report-btn"
+            onClick={() => setShowReport(true)}
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-dark-800 rounded-xl border border-dark-500 hover:bg-dark-700 hover:border-brand-500/40 transition-all shadow-md text-slate-300 hover:text-brand-400"
+            title="Download PDF Report"
+          >
+            <FileText size={13} />
+            <span className="text-[11px] font-bold uppercase tracking-wider">Report</span>
+          </button>
           
           {/* Notifications */}
           <div className="relative" ref={notifRef}>
@@ -539,6 +552,11 @@ export default function Navbar() {
       {/* Profile settings modal */}
       {showProfileModal && user && (
         <ProfileModal user={user} onClose={() => setShowProfileModal(false)} initialTab={profileModalTab} />
+      )}
+
+      {/* PDF Report modal */}
+      {showReport && (
+        <ReportModal onClose={() => setShowReport(false)} />
       )}
     </>
   )
